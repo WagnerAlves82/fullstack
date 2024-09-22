@@ -2,52 +2,91 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Clientes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #9B1B30;;
+            height: 100vh; /* Altura total da tela */
+            margin: 0; /* Remove margens */
+        }
+        .container {
+            display: flex;
+            height: 100%; /* Ocupa toda a altura */
+        }
+        .form-container {
+            background-color: #fff;
+            border-radius: 0; /* Sem bordas arredondadas */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem; /* Mantém o padding para o formulário */
+            flex: 1; /* Ocupar 50% da tela */
+        }
+        .image-container {
+            flex: 1; /* Ocupar 50% da tela */
+            text-align: center;
+            background: url('images/passaporte-italiano-e-brasileiro.jpg') no-repeat center center; /* Fundo com imagem */
+            background-size: cover; /* Cobrir todo o espaço */
+        }
+    </style>
 </head>
 <body>
-    <h1>Formulário de Cadastro</h1>
-    <form id="cadastroForm">
-        <label>Nome:</label>
-        <input type="text" name="nome" required>
-        <br>
-        <label>Sobrenome:</label>
-        <input type="text" name="sobrenome" required>
-        <br>
-        <label>Email:</label>
-        <input type="email" name="email" required>
-        <br>
-        <label>Data de Nascimento:</label>
-        <input type="date" name="dataNascimento" required>
-        <br>
-        <label>Nome do Antepassado:</label>
-        <input type="text" name="nomeAntepassado" required>
-        <br>
-        <label>Data de Nascimento do Antepassado:</label>
-        <input type="date" name="dataNascimentoAntepassado" required>
-        <br>
-        <button type="submit">Cadastrar</button>
-    </form>
 
-    <script>
-        document.getElementById('cadastroForm').onsubmit = async function(event) {
-            event.preventDefault(); // Evita o envio padrão do formulário
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData.entries());
-            const response = await fetch('/api/clientes', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
+<div class="container">
+    <div class="image-container"></div> <!-- Imagem como fundo -->
+    <div class="form-container">
+        <h1>Formulário de Cadastro</h1>
+        <form id="cadastroForm">
+            <div class="mb-3">
+                <label>Nome:</label>
+                <input type="text" name="nome" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Sobrenome:</label>
+                <input type="text" name="sobrenome" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Email:</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Data de Nascimento:</label>
+                <input type="date" name="dataNascimento" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Nome do Antepassado:</label>
+                <input type="text" name="nomeAntepassado" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Data de Nascimento do Antepassado:</label>
+                <input type="date" name="dataNascimentoAntepassado" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+    </div>
+</div>
 
-            if (response.ok) {
-                alert('Cliente cadastrado com sucesso!');
-                this.reset(); // Limpa o formulário
-            } else {
-                alert('Erro ao cadastrar cliente.');
-            }
-        };
-    </script>
+<script>
+    document.getElementById('cadastroForm').onsubmit = async function(event) {
+        event.preventDefault(); // Evita o envio padrão do formulário
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+        const response = await fetch('/api/clientes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+            alert('Cliente cadastrado com sucesso!');
+            this.reset(); // Limpa o formulário
+        } else {
+            alert('Erro ao cadastrar cliente.');
+        }
+    };
+</script>
+
 </body>
 </html>
